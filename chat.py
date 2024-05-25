@@ -1,53 +1,13 @@
 import streamlit as st
 from language_tool_python import LanguageTool
 import openai
-from utils import debounce  # Import the debounce function
+import os
 
 # Set OpenAI API key
-openai.api_key = 'your_openai_api_key'
+openai.api_key = r8_SfnUIo9yKj6LuE0xgFTAWQGPRBPSieJ23CsW6
 
 # Initialize LanguageTool for grammar correction
 tool = LanguageTool('en-US')
-
-# Define the debounce function
-@st.cache(suppress_st_warning=True, allow_output_mutation=True)
-def debounce(func, duration):
-    """
-    A debounce function that delays the execution of a function until after a specified duration
-    of inactivity. This prevents double activations and improves performance.
-    
-    Args:
-    - func: The function to be debounced.
-    - duration: The duration (in milliseconds) to wait before executing the function.
-    """
-    def debounced_function(*args, **kwargs):
-        import time
-        key = str((args, kwargs))
-        last_executed = st.session_state.get('debounce_last_executed', {})
-        if key in last_executed:
-            if time.time() - last_executed[key] < duration / 1000:
-                return
-        last_executed[key] = time.time()
-        st.session_state['debounce_last_executed'] = last_executed
-        return func(*args, **kwargs)
-    return debounced_function
-
-# Function for grammar correction
-@debounce
-def correct_grammar(text):
-    matches = tool.check(text)
-    corrected_text = tool.correct(text)
-    return corrected_text
-
-# Function for content suggestion
-@debounce
-def generate_content(prompt):
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=100
-    )
-    return response.choices[0].text.strip()
 
 # App title
 st.set_page_config(page_title="🦙💬 Llama 2 Chatbot")
@@ -123,14 +83,12 @@ if st.button('Send') and prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.spinner("Thinking..."):
         # Correct grammar before sending prompt to generate response
-        corrected_prompt = correct_grammar(prompt)
-        # Generate content suggestion based on corrected prompt
-        content_suggestion = generate_content(corrected_prompt)
+        matches = tool.check(prompt)
+        corrected_prompt = tool.correct(prompt)
+        
         # Generate LLM response using the corrected prompt
         response = generate_llama2_response(corrected_prompt)
         full_response = ''
         for item in response:
             full_response += item
-        # Append the content suggestion to the LLM response
-        full_response += "\n\nContent Suggestion: " + content_suggestion
         st.session_state.messages.append({"role": "assistant", "content": full_response})
