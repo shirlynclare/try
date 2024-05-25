@@ -44,10 +44,6 @@ def clear_chat_history():
 # Function to return to the social blog app
 def return_to_blog_app():
     blog_app_url = "https://socialblogapp.netlify.app/"
-    st.experimental_set_query_params()
-    st.experimental_rerun()
-    st.experimental_set_query_params()
-    st.experimental_rerun()
     st.markdown(f"Redirecting to [Blog App]({blog_app_url})...")
     st.experimental_rerun()
 
