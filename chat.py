@@ -41,7 +41,22 @@ for message in st.session_state.messages:
 def clear_chat_history():
     st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
 
+# Function to return to the blog app
+def return_to_blog_app():
+    # Modify the URL based on your blog app's address
+    blog_app_url = "https://yourblogapp.com"
+    # Redirect the user to the blog app URL
+    st.experimental_set_query_params()
+    st.experimental_rerun()
+    st.experimental_set_query_params()
+    st.experimental_rerun()
+    st.markdown(f"Redirecting to [Blog App]({blog_app_url})...")
+    st.experimental_rerun()
+
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
+
+# Add button to return to the blog app
+st.sidebar.button('Return to Blog App', on_click=return_to_blog_app)
 
 # Function for generating LLaMA2 response
 def generate_llama2_response(prompt_input):
@@ -66,19 +81,3 @@ if st.button('Send') and prompt:
         for item in response:
             full_response += item
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-
-# Back button in the sidebar
-
-def redirect_to_blog():
-    # Embed HTML for redirection
-    redirect_html = """
-    <script>
-        window.location.href = "https://www.blogger.com/";
-    </script>
-    """
-    st.components.v1.html(redirect_html)
-
-# "Back to Blog" button in the sidebar
-if st.sidebar.button("Back to Blog"):
-    redirect_to_blog()
-
