@@ -69,7 +69,16 @@ if st.button('Send') and prompt:
 
 # Back button in the sidebar
 
+def redirect_to_blog():
+    # Embed HTML for redirection
+    redirect_html = """
+    <script>
+        window.location.href = "https://www.blogger.com/";
+    </script>
+    """
+    st.components.v1.html(redirect_html)
+
+# "Back to Blog" button in the sidebar
 if st.sidebar.button("Back to Blog"):
-    # Redirect to your Blogging social app page or URL
-    st.write("Redirecting back to the Blogging social app...")
-    # You can insert the code to redirect the user here
+    redirect_to_blog()
+
