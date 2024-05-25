@@ -4,8 +4,7 @@ import openai
 import os
 
 # Set OpenAI API key
-openai.api_key = r8_SfnUIo9yKj6LuE0xgFTAWQGPRBPSieJ23CsW6
-
+openai.api_key = "r8_SfnUIo9yKj6LuE0xgFTAWQGPRBPSieJ23CsW6"
 # Initialize LanguageTool for grammar correction
 tool = LanguageTool('en-US')
 
