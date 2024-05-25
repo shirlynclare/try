@@ -33,10 +33,15 @@ with st.sidebar:
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
 
-# Display or clear chat messages
+# Display chat history
+chat_history = ""
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+    if message["role"] == "user":
+        chat_history += f"You: {message['content']}\n"
+    else:
+        chat_history += f"Assistant: {message['content']}\n"
+
+st.text_area("Chat History", value=chat_history, height=300, max_chars=None, key=None)
 
 def clear_chat_history():
     st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
