@@ -66,3 +66,8 @@ if st.button('Send') and prompt:
         for item in response:
             full_response += item
         st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+# Back button
+if st.button("Back to Blog"):
+    # Redirect to your Blogging social app page or URL
+    st.markdown("Insert code to redirect to the Blogging social app")
