@@ -41,21 +41,19 @@ for message in st.session_state.messages:
 def clear_chat_history():
     st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
 
-# Function to return to the blog app
+# Function to return to the social blog app
 def return_to_blog_app():
-    # Modify the URL based on your blog app's address
-    blog_app_url = "https://yourblogapp.com"
-    # Redirect the user to the blog app URL
+    blog_app_url = "https://socialblogapp.netlify.app/"
     st.experimental_set_query_params()
     st.experimental_rerun()
     st.experimental_set_query_params()
     st.experimental_rerun()
-    st.markdown(f"Redirecting to [Blog App]({https://socialblogapp.netlify.app/})...")
+    st.markdown(f"Redirecting to [Blog App]({blog_app_url})...")
     st.experimental_rerun()
 
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
-# Add button to return to the blog app
+# Add button to return to the social blog app
 st.sidebar.button('Return to Blog App', on_click=return_to_blog_app)
 
 # Function for generating LLaMA2 response
