@@ -19,15 +19,15 @@ with st.sidebar:
     os.environ['REPLICATE_API_TOKEN'] = replicate_api
     
     st.subheader('Models and parameters')
-    selected_model = st.sidebar.selectbox('Choose a Llama2 model', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
+    selected_model = st.selectbox('Choose a Llama2 model', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
     if selected_model == 'Llama2-7B':
         llm = 'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea'
     elif selected_model == 'Llama2-13B':
         llm = 'a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5'
     
-    temperature = st.sidebar.slider('Temperature', min_value=0.01, max_value=1.0, value=0.1, step=0.01)
-    top_p = st.sidebar.slider('Top P', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
-    max_length = st.sidebar.slider('Max Length', min_value=32, max_value=128, value=120, step=8)
+    temperature = st.slider('Temperature', min_value=0.01, max_value=1.0, value=0.1, step=0.01)
+    top_p = st.slider('Top P', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
+    max_length = st.slider('Max Length', min_value=32, max_value=128, value=120, step=8)
 
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
@@ -67,7 +67,9 @@ if st.button('Send') and prompt:
             full_response += item
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-# Back button
-if st.button("Back to Blog"):
+# Back button in the sidebar
+
+if st.sidebar.button("Back to Blog"):
     # Redirect to your Blogging social app page or URL
-    st.markdown("Insert code to redirect to the Blogging social app")
+    st.write("Redirecting back to the Blogging social app...")
+    # You can insert the code to redirect the user here
