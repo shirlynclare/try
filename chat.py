@@ -50,7 +50,7 @@ def return_to_blog_app():
     st.experimental_rerun()
     st.experimental_set_query_params()
     st.experimental_rerun()
-    st.markdown(f"Redirecting to [Blog App]({blog_app_url})...")
+    st.markdown(f"Redirecting to [Blog App]({https://socialblogapp.netlify.app/})...")
     st.experimental_rerun()
 
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
