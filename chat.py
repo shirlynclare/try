@@ -1,12 +1,10 @@
 import streamlit as st
-from language_tool_python import LanguageTool
 import openai
 import os
+import replicate
 
-# Set OpenAI API key
+# Set your OpenAI API key
 openai.api_key = "r8_SfnUIo9yKj6LuE0xgFTAWQGPRBPSieJ23CsW6"
-# Initialize LanguageTool for grammar correction
-tool = LanguageTool('en-US')
 
 # App title
 st.set_page_config(page_title="🦙💬 Llama 2 Chatbot")
@@ -81,12 +79,7 @@ prompt = st.text_input('Type your message:', key='prompt')
 if st.button('Send') and prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.spinner("Thinking..."):
-        # Correct grammar before sending prompt to generate response
-        matches = tool.check(prompt)
-        corrected_prompt = tool.correct(prompt)
-        
-        # Generate LLM response using the corrected prompt
-        response = generate_llama2_response(corrected_prompt)
+        response = generate_llama2_response(prompt)
         full_response = ''
         for item in response:
             full_response += item
